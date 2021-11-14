@@ -142,7 +142,7 @@ public:
 	Promise<>& deleteWebhook(snowflake_t webhook_id);
 	Promise<>& deleteWebhook(snowflake_t webhook_id, const QString& token);
 
-	Promise<Message>& createMessage(snowflake_t channel_id, const QString& content);
+	Promise<Message>& createMessage(snowflake_t channel_id, QString content);
 	Promise<Message>& createMessage(snowflake_t channel_id, const Embed& embed);
   Promise<Message>& createImageMessage(snowflake_t channel_id, const UploadAttachment &attachment, const QString & content);
 	Promise<Message>& createImageMessage(snowflake_t channel_id, const UploadAttachment &attachment, const Discord::Embed & embed);

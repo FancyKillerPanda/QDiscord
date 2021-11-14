@@ -1424,8 +1424,12 @@ Promise<>& Client::deleteWebhook(snowflake_t webhook_id, const QString& token)
 	return (*promise);
 }
 
-Promise<Message>& Client::createMessage(snowflake_t channel_id, const QString& content)
+Promise<Message>& Client::createMessage(snowflake_t channel_id, QString content)
 {
+	// Removes @everyone and @here
+	content.replace("@everyone", "\\@everyone");
+	content.replace("@here", "\\@here");
+	
 	QString endpoint = QString("/channels/%1/messages").arg(channel_id);
 	QJsonObject payload;
 
