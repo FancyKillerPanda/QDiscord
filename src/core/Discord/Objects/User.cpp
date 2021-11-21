@@ -5,7 +5,7 @@
 QDISCORD_NAMESPACE_BEGIN
 
 User::User(const QJsonObject& data)
-	: username_(data["username"].toString())
+	: username_(sanitiseName(data["username"].toString()))
 	, discriminator_(data["discriminator"].toString())
 	, avatar_(data["avatar"].toString())
 	, email_(data["email"].toString())
@@ -31,6 +31,25 @@ User::operator QJsonObject() const
 	data["verified"] = verified_;
 
 	return data;
+}
+
+QString User::sanitiseName(QString name)
+{
+	// Unescapes any already escaped characters
+	name.replace("\\\\", "\\");
+	name.replace("\\*", "*");
+	name.replace("\\_", "_");
+	name.replace("\\`", "`");
+	name.replace("\\~", "~");
+
+	// Escapes markdown characters
+	name.replace("\\", "\\\\");
+	name.replace("*", "\\*");
+	name.replace("_", "\\_");
+	name.replace("`", "\\`");
+	name.replace("~", "\\~");
+
+	return name;
 }
 
 QDISCORD_NAMESPACE_END

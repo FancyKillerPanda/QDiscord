@@ -26,6 +26,8 @@ public:
 
 	operator QJsonObject() const;
 
+	static QString sanitiseName(QString name);
+	
 private:
 	QString username_;
 	QString discriminator_;
